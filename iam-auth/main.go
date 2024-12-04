@@ -17,10 +17,10 @@ import (
 func main() {
 	var (
 		userName string = "root"
-		password string = "MSFpMmlZ1ZkY6ZLSZrPU"
-		host     string = "192.168.20.210"
+		password string = "xxx"
+		host     string = "xxx"
 		port     int    = 3306
-		dbName   string = "chiansectest"
+		dbName   string = "xxx"
 		charest  string = "utf8mb4"
 	)
 	dataSourceName := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s", userName, password, host, port, dbName, charest)

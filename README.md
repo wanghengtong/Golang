@@ -1,2 +1,2 @@
 # golang
-golang demo
+使用 go+gin+xorm+mysql 开发一个简单的web应用，并实现简单的认证、鉴权、路由、数据库操作、日志、异常处理、定时任务等功能。
