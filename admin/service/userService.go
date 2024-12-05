@@ -40,3 +40,8 @@ func (userSrvice *UserSrvice) Update(engine *xorm.Engine, user model.User) (int6
 	count, err := engine.ID(user.Id).AllCols().Update(&user)
 	return count, err
 }
+
+func (userSrvice *UserSrvice) Add(engine *xorm.Engine, user model.User) (interface{}, interface{}) {
+	count, err := engine.Insert(&user)
+	return count, err
+}

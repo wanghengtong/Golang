@@ -15,8 +15,10 @@ func (ginServer *Router) RegisterRoutes(r *gin.Engine) {
 	{
 		userGroup.GET("/list", ginServer.UserController.List)
 		userGroup.GET("/delete", ginServer.UserController.Delete)
-		userGroup.GET("/edit", ginServer.UserController.Edit)
+		userGroup.GET("/toEdit", ginServer.UserController.ToEdit)
 		userGroup.POST("/update", ginServer.UserController.Update)
+		userGroup.GET("/toAdd", ginServer.UserController.ToAdd)
+		userGroup.POST("/add", ginServer.UserController.Add)
 	}
 
 	adminGroup := r.Group("/admin")

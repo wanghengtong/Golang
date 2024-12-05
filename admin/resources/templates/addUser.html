@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add User</title>
+    <style>        body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    form {
+        max-width: 500px;
+        margin: auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    </style>
+</head>
+<body>
+<h1>Add User</h1>
+<form action="/user/add" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="Name" required>
+
+    <label for="age">Age:</label>
+    <input type="number" id="age" name="Age" required>
+
+    <label for="sex">Sex:</label>
+    <select id="sex" name="Sex" required>
+        <option value="1">男</option>
+        <option value="2">女</option>
+    </select>
+
+    <label for="mobile">Mobile:</label>
+    <input type="text" id="mobile" name="Mobile" required>
+
+    <label for="mail">Mail:</label>
+    <input type="text" id="mail" name="Mail" required>
+
+    <input type="submit" value="Add User">
+</form>
+
+<script>    // 可以在这里添加额外的JavaScript逻辑，例如表单验证
+</script>
+</body>
+</html>

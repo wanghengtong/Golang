@@ -106,18 +106,19 @@
     </tbody>
 </table>
 
-<script>    function addUser() {
+<script>
+function addUser() {
     // 在这里添加新增用户逻辑，例如跳转到新增页面
     console.log("Adding new user");
     // 示例：跳转到新增页面
-    window.location.href = "/user/addUser";
+    window.location.href = "/user/toAdd";
 }
 
 function editUser(userId) {
     // 在这里添加编辑用户逻辑，例如跳转到编辑页面
     console.log("Editing user with ID: " + userId);
     // 示例：跳转到编辑页面
-    window.location.href = "/user/edit?id=" + userId;
+    window.location.href = "/user/toEdit?id=" + userId;
 }
 
 function deleteUser(userId) {
