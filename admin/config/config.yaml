@@ -1,3 +1,6 @@
+server:
+  port: 8081
+
 db:
   username: root
   password: root
@@ -5,3 +8,6 @@ db:
   port: 3306
   dbname: test
   charset: utf8mb4
+
+logger:
+  showsql: true

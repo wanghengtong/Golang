@@ -1,8 +1,8 @@
 package router
 
 import (
+	"admin/controller"
 	"github.com/gin-gonic/gin"
-	"iam-auth/controller"
 )
 
 type Router struct {

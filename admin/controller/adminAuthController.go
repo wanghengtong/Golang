@@ -1,10 +1,10 @@
 package controller
 
 import (
+	"admin/model"
+	"admin/service"
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"iam-auth/model"
-	"iam-auth/service"
 	"net/http"
 	"time"
 	"xorm.io/xorm"

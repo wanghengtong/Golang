@@ -1,8 +1,8 @@
 package service
 
 import (
+	"admin/model"
 	"fmt"
-	"iam-auth/model"
 	"log"
 	"xorm.io/xorm"
 )
