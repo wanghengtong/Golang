@@ -11,3 +11,9 @@ db:
 
 logger:
   showsql: true
+
+auth:
+  jwt:
+    secret: "secret"
+    cookie:
+      name: "jwt_token"

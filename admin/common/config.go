@@ -7,8 +7,7 @@ import (
 
 // 定义常量
 const (
-	defaultPort = 8080
-	configPath  = "./config/config.yaml"
+	configPath = "./config/config.yaml"
 )
 
 func init() {

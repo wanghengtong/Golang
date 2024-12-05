@@ -41,7 +41,7 @@ func (userSrvice *UserSrvice) Update(engine *xorm.Engine, user model.User) (int6
 	return count, err
 }
 
-func (userSrvice *UserSrvice) Add(engine *xorm.Engine, user model.User) (interface{}, interface{}) {
+func (userSrvice *UserSrvice) Add(engine *xorm.Engine, user model.User) (int64, error) {
 	count, err := engine.Insert(&user)
 	return count, err
 }

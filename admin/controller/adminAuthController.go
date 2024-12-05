@@ -3,8 +3,10 @@ package controller
 import (
 	"admin/model"
 	"admin/service"
+	"admin/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/spf13/viper"
 	"net/http"
 	"time"
 	"xorm.io/xorm"
@@ -40,6 +42,13 @@ func (this *AdminAuthController) LoginToIndex(ctx *gin.Context) {
 	}
 	admin.LoginTime = time.Now()
 	this.Engine.Update(&admin)
+
+	// 生成 JWT Token
+	token := utils.GenerateJWT(admin)
+
+	// 设置 Cookie
+	cookieName := viper.GetString("auth.jwt.cookie.name")
+	utils.SetCookie(ctx, cookieName, token)
 
 	// 重定向回用户列表页面或其他页面
 	ctx.Redirect(http.StatusSeeOther, "/user/list")

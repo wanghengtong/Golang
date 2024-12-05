@@ -121,8 +121,8 @@ func (this *UserController) Add(ctx *gin.Context) {
 		return
 	}
 	// 新增用户信息
-	_, err := this.UserSrvice.Add(this.Engine, user)
-	if err != nil {
+	count, err := this.UserSrvice.Add(this.Engine, user)
+	if err != nil || count < 1 {
 		fmt.Printf("新增失败: %v\n", err)
 		model.ReturnError(ctx, 5001, "add failed")
 		return

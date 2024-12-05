@@ -25,8 +25,9 @@ func main() {
 	ginServer := gin.Default()
 	ginServer.Use(favicon.New("./resources/favicon.ico"))
 	ginServer.LoadHTMLGlob("./resources/templates/*")
-	// ginServer.Use(common.InitMiddleware())
+	ginServer.Use(common.InitMiddleware())
 
+	// 注册路由
 	setupRouter(ginServer, engine)
 	// 启动服务器
 	common.StartServer(ginServer)
