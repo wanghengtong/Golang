@@ -51,6 +51,27 @@ func ParseJWT(cookie string) (bool, error) {
 	}
 }
 
+// ParseToken 解析 JWT 令牌
+func ParseToken(tokenString string, secretKey []byte) (*Claims, error) {
+	claims := &Claims{}
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("unexpected signing method: %v", token.Header["alg"])
+		}
+		return secretKey, nil
+	})
+
+	if err != nil {
+		return nil, err
+	}
+
+	if !token.Valid {
+		return nil, fmt.Errorf("invalid token")
+	}
+
+	return claims, nil
+}
+
 // 自定义 Claims 结构体
 type Claims struct {
 	Data interface{} `json:"data"`

@@ -8,8 +8,13 @@ db:
   port: 3306
   dbname: test
   charset: utf8mb4
+  maxidleconns: 50
+  maxlifetime: 600
+  maxopenconns: 2048
+  connTimeout: 300
 
 logger:
+  level: debug
   showsql: true
 
 auth:

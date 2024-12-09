@@ -21,6 +21,13 @@ func (adminAuthcontroller *AdminAuthController) Index(ctx *gin.Context) {
 	ctx.HTML(http.StatusOK, "login.html", nil)
 }
 
+func (adminAuthcontroller *AdminAuthController) Logout(ctx *gin.Context) {
+	// 清除认证 Cookie
+	cookieName := viper.GetString("auth.jwt.cookie.name")
+	utils.ClearCookie(ctx, cookieName)
+	ctx.HTML(http.StatusOK, "login.html", nil)
+}
+
 func (this *AdminAuthController) LoginToIndex(ctx *gin.Context) {
 	loginName := ctx.DefaultPostForm("loginName", "")
 	fmt.Println(loginName)

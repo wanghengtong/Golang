@@ -25,5 +25,6 @@ func (ginServer *Router) RegisterRoutes(r *gin.Engine) {
 	{
 		adminGroup.GET("/index", ginServer.AdminAuthController.Index)
 		adminGroup.POST("/login", ginServer.AdminAuthController.LoginToIndex)
+		adminGroup.GET("/logout", ginServer.AdminAuthController.Logout)
 	}
 }

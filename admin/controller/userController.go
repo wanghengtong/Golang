@@ -28,12 +28,19 @@ func (this *UserController) List(ctx *gin.Context) {
 		http.Error(w, "Error parsing template", http.StatusInternalServerError)
 		return
 	}
-	data := map[string]interface{}{
-		"Users": users,
-	}
-	err = tmpl.Execute(w, data)
-	if err != nil {
-		http.Error(w, "Error executing template", http.StatusInternalServerError)
+
+	if admin, ok := ctx.Get("CurrentAdmin"); ok {
+		data := map[string]interface{}{
+			"Users": users,
+			"Admin": admin,
+		}
+		err = tmpl.Execute(w, data)
+		if err != nil {
+			http.Error(w, "Error executing template", http.StatusInternalServerError)
+			return
+		}
+	} else {
+		http.Error(w, "Unauthorized", http.StatusUnauthorized)
 		return
 	}
 }

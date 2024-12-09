@@ -35,3 +35,22 @@ func GetCookie(ctx *gin.Context, cookieName string) (string, error) {
 	}
 	return cookie, err
 }
+
+// 清除 Cookie
+func ClearCookie(ctx *gin.Context, key string) {
+	// 设置 Cookie 的过期时间为当前时间减去 1 小时，表示立即过期
+	expirationTime := time.Now().Add(-1 * time.Hour)
+
+	// 创建 Cookie
+	cookie := &http.Cookie{
+		Name:     key,
+		Value:    "",
+		Expires:  expirationTime,
+		HttpOnly: true,  // 设置 HttpOnly 属性以防止 JavaScript 访问
+		Secure:   false, // 如果使用 HTTPS，请设置为 true
+		Path:     "/",
+	}
+
+	// 设置 Cookie 到响应中
+	http.SetCookie(ctx.Writer, cookie)
+}

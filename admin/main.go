@@ -13,7 +13,7 @@ import (
 
 func main() {
 	// 初始化数据库
-	engine, err := common.InitDB()
+	engine, err := common.GetMysqlEngine()
 	if err != nil {
 		logrus.Fatalf("数据库初始化失败: %v", err)
 	}
