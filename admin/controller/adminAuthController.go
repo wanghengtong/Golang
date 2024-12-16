@@ -14,7 +14,7 @@ import (
 
 type AdminAuthController struct {
 	Engine     *xorm.Engine
-	UserSrvice *service.UserSrvice
+	UserSrvice *service.UserService
 }
 
 func (adminAuthcontroller *AdminAuthController) Index(ctx *gin.Context) {
@@ -48,7 +48,7 @@ func (this *AdminAuthController) LoginToIndex(ctx *gin.Context) {
 		return
 	}
 	admin.LoginTime = time.Now()
-	this.Engine.Update(&admin)
+	this.Engine.ID(admin.Id).Update(&admin)
 
 	// 生成 JWT Token
 	token := utils.GenerateJWT(admin)
@@ -58,5 +58,5 @@ func (this *AdminAuthController) LoginToIndex(ctx *gin.Context) {
 	utils.SetCookie(ctx, cookieName, token)
 
 	// 重定向回用户列表页面或其他页面
-	ctx.Redirect(http.StatusSeeOther, "/user/list")
+	ctx.Redirect(http.StatusSeeOther, "/user/pageList")
 }

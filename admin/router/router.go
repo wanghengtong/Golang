@@ -13,6 +13,7 @@ type Router struct {
 func (ginServer *Router) RegisterRoutes(r *gin.Engine) {
 	userGroup := r.Group("/user")
 	{
+		userGroup.GET("/pageList", ginServer.UserController.PageList)
 		userGroup.GET("/list", ginServer.UserController.List)
 		userGroup.GET("/delete", ginServer.UserController.Delete)
 		userGroup.GET("/toEdit", ginServer.UserController.ToEdit)

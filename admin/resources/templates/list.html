@@ -4,38 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User List</title>
-    <style>        body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f9;
+    <style>        :root {
+        --primary-color: #007bff;
+        --secondary-color: #28a745;
+        --danger-color: #dc3545;
+        --warning-color: #ffc107;
+        --background-color: #f4f4f9;
+        --card-background-color: #ffffff;
+        --text-color: #333;
+        --font-family: Arial, sans-serif;
+        --border-radius: 8px;
+        --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        --transition-duration: 0.3s;
+    }
+
+    body {
+        font-family: var(--font-family);
+        background-color: var(--background-color);
         margin: 0;
         padding: 20px;
+        color: var(--text-color);
     }
 
     #admin-info {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        background-color: #ffffff;
+        background-color: var(--card-background-color);
         padding: 15px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: var(--border-radius);
+        box-shadow: var(--box-shadow);
         margin-bottom: 20px;
     }
 
     #admin-name {
         font-size: 1.4em;
         font-weight: bold;
-        color: #333;
     }
 
     button {
-        background-color: #007bff;
+        background-color: var(--primary-color);
         color: white;
         border: none;
         padding: 10px 20px;
-        border-radius: 5px;
+        border-radius: var(--border-radius);
         cursor: pointer;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        transition: background-color var(--transition-duration) ease, transform 0.2s ease;
     }
 
     button:hover {
@@ -44,38 +58,69 @@
     }
 
     button.add-button {
-        background-color: #28a745;
+        background-color: var(--secondary-color);
     }
 
     button.add-button:hover {
         background-color: #218838;
     }
 
-    h1 {
+    button.delete-button {
+        background-color: var(--danger-color);
+    }
+
+    button.delete-button:hover {
+        background-color: #c82333;
+    }
+
+    button.edit-button {
+        background-color: var(--warning-color);
+    }
+
+    button.edit-button:hover {
+        background-color: #e0a800;
+    }
+
+    h1, h2 {
         margin-top: 0;
-        color: #333;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: var(--border-radius);
+        width: calc(100% - 22px);
+        box-sizing: border-box;
+        margin-right: 10px;
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
         margin-top: 20px;
-        background-color: #ffffff;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
+        background-color: var(--card-background-color);
+        box-shadow: var(--box-shadow);
+        border-radius: var(--border-radius);
         overflow: hidden;
+        font-size: 1em;
+    }
+
+    th {
+        background-color: #f8f9fa;
+        font-weight: bold;
+        text-align: left;
+        padding: 15px;
+        border-bottom: 2px solid #ddd;
     }
 
     th, td {
         padding: 15px;
         text-align: left;
         border-bottom: 1px solid #ddd;
-    }
-
-    th {
-        background-color: #f8f9fa;
-        font-weight: bold;
-        color: #333;
     }
 
     tr:nth-child(even) {
@@ -86,7 +131,61 @@
         background-color: #e0e0e0;
     }
 
+    #pagination {
+        margin-top: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #pagination button {
+        margin: 0 5px;
+    }
+
+    #pagination span {
+        margin: 0 10px;
+        font-size: 1.1em;
+    }
+
+    .search-form {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .search-input {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: var(--border-radius);
+        width: calc(100% - 110px);
+        box-sizing: border-box;
+        margin-right: 10px;
+    }
+
+    .search-button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: var(--border-radius);
+        cursor: pointer;
+        transition: background-color var(--transition-duration) ease, transform 0.2s ease;
+    }
+
+    .search-button:hover {
+        background-color: #0056b3;
+        transform: scale(1.05);
+    }
+
     @media (max-width: 768px) {
+        form#searchForm {
+            flex-direction: column;
+        }
+
+        form#searchForm .search-input {
+            margin-bottom: 10px;
+        }
+
         table {
             width: 100%;
             overflow-x: auto;
@@ -94,6 +193,15 @@
 
         th, td {
             padding: 10px;
+        }
+
+        #pagination {
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        #pagination button, #pagination span {
+            margin: 5px 0;
         }
     }
     </style>
@@ -105,6 +213,12 @@
 </div>
 
 <button class="add-button" onclick="addUser()">新增</button>
+
+<form id="searchForm" class="search-form" onsubmit="return searchUsers()">
+    <input type="text" id="searchQuery" class="search-input" placeholder="请输入用户姓名查询" value="{{.SearchQuery}}">
+    <button type="submit" class="search-button">查询</button>
+</form>
+
 <table>
     <thead>
     <tr>
@@ -139,7 +253,31 @@
     </tbody>
 </table>
 
+<div id="pagination">
+    {{if gt .CurrentPage 1}}
+    <button onclick="loadPage({{.PrevPage}})">上一页</button>
+    {{else}}
+    <button disabled>上一页</button>
+    {{end}}
+    <span>第 {{.CurrentPage}} 页 / 共 {{.TotalPages}} 页</span>
+    {{if lt .CurrentPage .TotalPages}}
+    <button onclick="loadPage({{.NextPage}})">下一页</button>
+    {{else}}
+    <button disabled>下一页</button>
+    {{end}}
+</div>
+
 <script>
+function loadPage(pageIndex) {
+    console.log("Loading page: " + pageIndex);
+    window.location.href = "/user/pageList?pageIndex=" + pageIndex + "&pageSize=" + 10;
+}
+
+function logout() {
+    console.log("Logging out");
+    window.location.href = "/admin/logout";
+}
+
 function addUser() {
     console.log("Adding new user");
     window.location.href = "/user/toAdd";
@@ -153,6 +291,13 @@ function editUser(userId) {
 function deleteUser(userId) {
     console.log("Deleting user with ID: " + userId);
     window.location.href = "/user/delete?id=" + userId;
+}
+
+function searchUsers() {
+    debugger;
+    var searchQuery = document.getElementById('searchQuery').value;
+    window.location.href = "/user/pageList?pageIndex=1&pageSize=" + 10 + "&searchQuery=" + encodeURIComponent(searchQuery);
+    return false;
 }
 </script>
 </body>
